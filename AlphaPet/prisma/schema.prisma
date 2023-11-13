@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") 
+}
+
+enum SituacaoEnum {
+  ATIVO
+  INATIVO
+  EXCLUIDO
+}
+
+model usuarios {
+  id                  Int                 @id @default(autoincrement())
+  nome                String              @default("")
+  email               String              @unique
+  senha               String
+  created_at          DateTime            @default(now())
+  situacao            SituacaoEnum        @default(ATIVO)
+  agendarClientes    agendarClientes[]
+
+  @@map("usuarios")
+}
+
+model agendarClientes {
+  id                  Int                 @id @default(autoincrement())
+  nome                String 
+  telefone            String
+  nomeCachorro        String
+  observacao          String
+  horarioMarcado      String              @default("") 
+  valor               Float               @default(0)
+  created_at          DateTime            @default(now()) 
+  situacao            SituacaoEnum        @default(ATIVO)
+  usuarios            usuarios             @relation(fields: [usuarioId], references: [id])
+  usuarioId           Int
+  procedimentos       procedimentos        @relation(fields: [procedimentoId], references: [id])
+  procedimentoId      Int
+
+  @@map("agendarClientes")
+}
+
+model procedimentos {
+  id                  Int                 @id @default(autoincrement())
+  nome                String
+  created_at          DateTime            @default(now())  
+  situacao            SituacaoEnum        @default(ATIVO)
+  agendarClientes     agendarClientes[] 
+
+  @@map("procedimentos")
+} 
+

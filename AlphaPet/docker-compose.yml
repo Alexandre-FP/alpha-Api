@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  postgres:
+    container_name: alphapet-api-postgres
+    image: "postgres:latest"
+    ports: 
+      - "5433:5432"
+    env_file: 
+      - "./.env" 
