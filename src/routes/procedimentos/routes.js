@@ -1,8 +1,8 @@
 import ProcedimentosController from "./controllers.js"
 import AcessoRotas from "../../middlewares/AcessoRotas.js";
-import express from "express";
+import { Router } from "express";
 
-const router = express.Router();
+const router = new Router();
 
 const procedimentosController = new ProcedimentosController()
 
@@ -13,4 +13,4 @@ router.get("/:id", AcessoRotas, procedimentosController.pesquisarProcedimento);
 router.put("/:id", AcessoRotas, procedimentosController.atualizarProcedimento);
 router.delete("/:id", AcessoRotas, procedimentosController.deleteProcedimento);  
 
-export default router;  
+export default router;   

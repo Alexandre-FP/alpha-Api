@@ -42,7 +42,7 @@ class ProcedimentosController {
     async atualizarProcedimento(req, res){
         const { body, params } = req
 
-        const procedimentoExiste = await prisma.procedimentos.findFirst({
+        const procedimentoExiste = await prisma.procedimentos.findUnique({
             where: {
                 id: Number(params.id)
             }  
@@ -58,8 +58,8 @@ class ProcedimentosController {
             },
             data: {
                 ...body
-            }
-        });
+            } 
+        }); 
  
         return res.status(200).json({ content: result })
     }

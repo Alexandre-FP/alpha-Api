@@ -20,10 +20,10 @@ model usuarios {
   id                  Int                 @id @default(autoincrement())
   nome                String              @default("")
   email               String              @unique
-  senha               String
+  senha               String              
   created_at          DateTime            @default(now())
   situacao            SituacaoEnum        @default(ATIVO)
-  agendarClientes    agendarClientes[]
+  agendarClientes     agendarClientes[]
 
   @@map("usuarios")
 }
@@ -38,9 +38,9 @@ model agendarClientes {
   valor               Float               @default(0)
   created_at          DateTime            @default(now()) 
   situacao            SituacaoEnum        @default(ATIVO)
-  usuarios            usuarios             @relation(fields: [usuarioId], references: [id])
+  usuarios            usuarios            @relation(fields: [usuarioId], references: [id])
   usuarioId           Int
-  procedimentos       procedimentos        @relation(fields: [procedimentoId], references: [id])
+  procedimentos       procedimentos       @relation(fields: [procedimentoId], references: [id])
   procedimentoId      Int
 
   @@map("agendarClientes")

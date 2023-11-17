@@ -71,6 +71,23 @@ class AuthController {
           return res.status(201).json({ content: result })
     }
 
+    async listarUsuarioPorId(req, res){ 
+        const { params } = req; 
+
+        const result = await prisma.usuarios.findFirst({
+            where: {
+                id: Number(params.id) 
+            }
+        });
+
+        if(!result){
+            return res.status(404).json({message: "Usuário não encontrado"})
+        }
+     
+
+        return res.status(200).json({ content: {..._.omit(result,"senha") }});
+    }
+
     async listarUsuario(req, res){ 
         const result = await prisma.usuarios.findMany({
             where: {
@@ -101,12 +118,15 @@ class AuthController {
             return next(error);
         }
 
+        const senhaEncriptada = await bcrypt.hash(body.senha, 8);
+
         const result = await prisma.usuarios.update({
             where: {
                 id: Number(params.id)
             },
             data: {
-                ...body  
+                ...body,
+                senha: senhaEncriptada,
             }  
         });
 

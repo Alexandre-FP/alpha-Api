@@ -1,17 +1,18 @@
-import express from "express";
+import { Router } from "express";
 import AuthController from "./controllers.js";
 import AcessoRotas from "../../middlewares/AcessoRotas.js";
 
-const router = express.Router();
+const router = new Router();
 
 const authController = new AuthController();
 
 // LOGIN
 router.post("/login", authController.login); 
 
-// CRUD USUARIOS 
-router.post("/usuaios", authController.criarUsuario);   
-router.get("/usuarios", AcessoRotas, authController.listarUsuario); 
-router.put("/usuarios/:id", AcessoRotas, authController.atualizarUsuario);    
+// CRUD USUARIOS  
+router.post("/usuarios", authController.criarUsuario);   
+router.get("/usuarios", AcessoRotas, authController.listarUsuario);  
+router.get("/usuarios/:id", AcessoRotas, authController.listarUsuarioPorId);  
+router.put("/usuarios/:id", authController.atualizarUsuario);    
  
-export default router;     
+export default router;         
