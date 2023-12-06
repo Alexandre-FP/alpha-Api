@@ -40,8 +40,7 @@ model agendarClientes {
   situacao            SituacaoEnum        @default(ATIVO)
   usuarios            usuarios            @relation(fields: [usuarioId], references: [id])
   usuarioId           Int
-  procedimentos       procedimentos       @relation(fields: [procedimentoId], references: [id])
-  procedimentoId      Int
+  procedimento        procedimentos[]
 
   @@map("agendarClientes")
 }
@@ -51,7 +50,7 @@ model procedimentos {
   nome                String
   created_at          DateTime            @default(now())  
   situacao            SituacaoEnum        @default(ATIVO)
-  agendarClientes     agendarClientes[] 
+  agendarCliente      agendarClientes[] 
 
   @@map("procedimentos")
 } 

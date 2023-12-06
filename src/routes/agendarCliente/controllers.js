@@ -8,24 +8,25 @@ class AgendarCliente {
 
         const token = jwt.verify(tokenEncriptado, process.env.SECRET_PASS_JWT);
 
+        const procedimentosCriados = await prisma.procedimentos.findMany()
+
         const result = await prisma.agendarClientes.create({
             data: {
                 ...body, 
+                procedimento: {
+                    connect: procedimentosCriados
+                },
                 usuarioId: token?.id, 
             }
         });
+
         return res.status(201).json({ content: result })  
-    } 
+    }  
 
     async listarCliente(req, res){
         const result = await prisma.agendarClientes.findMany({
             include: { 
-                procedimentos: {
-                    select: {
-                        nome: true, 
-                        situacao: true,
-                    }
-                }, 
+                procedimento: true,
                 usuarios: {
                     select: { 
                         id: true,
