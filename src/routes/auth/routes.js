@@ -15,4 +15,4 @@ router.get("/usuarios", AcessoRotas, authController.listarUsuario);
 router.get("/usuarios/:id", AcessoRotas, authController.listarUsuarioPorId);  
 router.put("/usuarios/:id", authController.atualizarUsuario);    
  
-export default router;         
+export default router;          

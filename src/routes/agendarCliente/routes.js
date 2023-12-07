@@ -10,5 +10,5 @@ const agendarCliente = new AgendarCliente()
 router.post("/", AcessoRotas, agendarCliente.cadastrarCliente);
 router.get("/", AcessoRotas, agendarCliente.listarCliente); 
 
-export default router;  
+export default router;   
  

@@ -16,7 +16,7 @@ class AgendarCliente {
                 procedimento: {
                     connect: procedimentosCriados
                 },
-                usuarioId: token?.id, 
+                usuarioId: token?.id,  
             }
         });
 

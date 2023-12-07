@@ -53,5 +53,5 @@ model procedimentos {
   agendarCliente      agendarClientes[] 
 
   @@map("procedimentos")
-} 
+}  
 
